@@ -1,7 +1,4 @@
 from datetime import datetime
-#helloow
-#HEELLO EHLLLo
-#Heyyy
 class User(object):
 
 	expirationDate = datetime(1990, 1, 1)
