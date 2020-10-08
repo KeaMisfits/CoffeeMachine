@@ -10,7 +10,7 @@ class CoffeeMachine(object):
     global cmdPrompt
     cmdPrompt = "> "
 
-##sss
+##ssssss
 
 
     #availableProducts: dict
