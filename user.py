@@ -7,15 +7,13 @@ class User(object):
 	#	variables at the top of the class
 	name = None
 	surname = None
-	id = None
 	cardKey = None
 	# ---
 
 	expirationDate = date(1990, 1, 1)
 	lastFreeCoffeeDate = date(1990, 1, 1)
 
-	def __init__(self, id, cardKey, name = "Unknown", surname = "Unknown"):
-		self.id = id # TODO implement auto ID assignemnt using database connection.
+	def __init__(self, cardKey, name = "Unknown", surname = "Unknown"):
 		self.cardKey = cardKey
 		self.name = name
 		self.surname = surname
