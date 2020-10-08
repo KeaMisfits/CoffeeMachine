@@ -1,5 +1,6 @@
 # CoffeeMachine.py
 from user import User
+import fakedata
 
 class CoffeeMachine(object):
 
@@ -15,30 +16,11 @@ class CoffeeMachine(object):
     currentUser = None
     #coffeeAuthorized: boolean = False
 
-    # TEMPORARY method for testing
-    # Returns None in string form if user not found
-    # Returns User object if user successfully found
-    def TMP_getUser(self, cardKey):
-
-        if cardKey == "qwerty123":
-            newUser = User(
-            cardKey = "qwerty123",
-            name = "Adam",
-            surname = "Smith"
-            )
-
-            newUser.expirationDate
-
-
-            return newUser
-        else:
-            return None
-
     def promptCard(self):
         print("Please, scan your card")
         # Uses the input from the user, which should be cardKey
         #   to check to which user it belongs by accessing the database
-        feedback = self.TMP_getUser(input(cmdPrompt))
+        feedback = fakedata.getUser(input(cmdPrompt))
         # At this point we are not sure if the user was found
         #   thus, we make sure by checking whether the return
         #   value is of User type.
@@ -54,19 +36,20 @@ class CoffeeMachine(object):
 
         userInput = None
 
-        while True:
+        while True: # The loop will exit using 'break' statements.
             print("Type '1' for menu or '2' for custom. Type 0 to exit")
             userInput = input(cmdPrompt)
 
-            if userInput == "1":
+            if userInput == "1": # Choose from menu
+                chooseCoffee()
                 break
-            elif userInput == "2":
+            elif userInput == "2": # Custom
+                buildCoffee()
                 break
-            elif userInput == "0": # 0 Exits the loop
+            elif userInput == "0": # Exit the loop
                 break
             else:
                 print("Unexpected input")
-
 
     def buildCoffee(self):
         pass
