@@ -10,9 +10,6 @@ class CoffeeMachine(object):
     global cmdPrompt
     cmdPrompt = "> "
 
-##ssssss
-
-
     #availableProducts: dict
     #cardKey: str
     currentUser = None
