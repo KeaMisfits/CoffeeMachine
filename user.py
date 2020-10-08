@@ -40,8 +40,8 @@ class User(object):
 				return False
 
 
-user = User(1001, "testId")
-user.expiration = date(2020, 10, 10)
-user.lastFreeCoffeeDate = date(2020, 10, 7)
-print(date.today())
-print(user.isFreeCoffee())
+# user = User(1001, "testId")
+# user.expiration = date(2020, 10, 10)
+# user.lastFreeCoffeeDate = date(2020, 10, 7)
+# print(date.today())
+# print(user.isFreeCoffee())
