@@ -36,3 +36,8 @@ for i in range(5):
          totalRevenueForOctober1 += allOrders[1].revenue
 
 print(totalRevenueForOctober1)
+
+oneOrder = Order()
+print(oneOrder.revenue)
+print(oneOrder.date)
+
