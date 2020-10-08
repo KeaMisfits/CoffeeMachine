@@ -11,8 +11,8 @@ class User(object):
 	cardKey = None
 	# ---
 
-	expirationDate = datetime(1990, 1, 1)
-	lastFreeCoffeeDate = datetime(1990, 1, 1)
+	expirationDate = date(1990, 1, 1)
+	lastFreeCoffeeDate = date(1990, 1, 1)
 
 	def __init__(self, id, cardKey, name = "Unknown", surname = "Unknown"):
 		self.id = id # TODO implement auto ID assignemnt using database connection.
@@ -21,7 +21,7 @@ class User(object):
 		self.surname = surname
 
 	def isActiveMember(self):
-		if self.expiration > date.now(): # Checks if expiration date is later than today.
+		if self.expiration > date.today(): # Checks if expiration date is later than today.
 			return True
 		return False
 
@@ -29,7 +29,7 @@ class User(object):
 		if self.isActiveMember() == False:
 			return False
 		else:
-			now = date.now()
+			now = date.today()
 			if now.year > self.lastFreeCoffeeDate.year:
 				return True
 			elif now.month > self.lastFreeCoffeeDate.month:
@@ -40,7 +40,7 @@ class User(object):
 				return False
 
 
-user = User()
+user = User(1001, "testId")
 user.expiration = date(2020, 10, 10)
 user.lastFreeCoffeeDate = date(2020, 10, 7)
 print(date.today())
