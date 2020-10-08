@@ -12,6 +12,7 @@ class CoffeeMachine(object):
 
 ##sss
 
+
     #availableProducts: dict
     #cardKey: str
     currentUser = None
