@@ -20,7 +20,7 @@ class Order(object):
 
 ##################### class end
 
-# List of orders. This is your FAKE DATA
+# List of orders. This is your FAKE DATA. You can add more order.
 allOrders = [
 Order(date(2020,10,1), 3.50),
 Order(date(2020,10,1), 2.95),
