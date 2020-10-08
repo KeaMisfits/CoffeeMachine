@@ -29,3 +29,10 @@ Order(date(2020,10,5), 1.50),
 Order(date(2020,10,5), 2.95),
 Order(date(2020,10,5), 7.95),
 ]
+totalRevenueForOctober1 = 0
+
+for i in range(5):
+    if allOrders[i].date == date(2020,10,1):
+         totalRevenueForOctober1 += allOrders[1].revenue
+
+print(totalRevenueForOctober1)
