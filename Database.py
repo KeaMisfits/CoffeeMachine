@@ -6,6 +6,7 @@
 from datetime import datetime, date
 import csv
 from user import User
+from order import Order
 from Coffee import Coffee
 
 # Filenames
@@ -15,6 +16,8 @@ filenameUsers = "users.csv"
 # Data from files
 global users
 users = {}
+global orders
+orders = {}
 
 #################
 # Hard-coded data
@@ -23,6 +26,17 @@ menu = {
 "latte": Coffee("latte", "Latte", 12.50),
 "capuchino": Coffee("capuchino", "Capuchino", 15.00)
 }
+# Bank cards
+#  Example bank card register for prototype use
+#  key is cards number and value is the CVC
+bankCards = {
+"1111-1111-1111-1111": "111",
+"2222-2222-2222-2222": "222",
+"3333-3333-3333-3333": "333"
+}
+# /Hard-coded data
+#################
+
 
 ###############################
 # Load users
@@ -34,6 +48,7 @@ def loadUsers():
     # From every list (userLine) in the list, we create a new user object,
     #  that we put into the dictonary. We use cardKey value from the users
     #  as the key.
+
     for userLine in allUsers:
         # We initialize the user with valus from the list
         newUser = User(cardKey = userLine[0],
@@ -75,14 +90,26 @@ def getUser(cardKey):
 #   Returns menu dictionary
 def getMenu():
     return menu
+#   Returns bankCards dictionary (PROTOTYPE method)
+def getBankCards():
+    return bankCards
 #   Returns Coffee object from the menu.
 #    TODO: may be useless
 def getMenuCoffee(nameId):
     return menu[nameId]
 
 ###############################
-
+# Mutators and appenders
+def addOrder(order):
+    if isinstance(order, Order):
+        orders[9999] = order # TODO replace 9999 with order.id
+    else:
+        # Show warning message
+        print(f"WARNING in {__name__} at {addOrder.__name__}: "
+        + "The input parameter is not of type Order"
+        )
 #################
+
 # #Date parser test
 # dateInString = str(date(2020,10,1))
 # print(f"orginal: {dateInString}")
