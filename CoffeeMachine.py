@@ -1,6 +1,7 @@
 # CoffeeMachine.py
 from user import User
 import fakedata
+import Database
 
 class CoffeeMachine(object):
 
@@ -16,11 +17,14 @@ class CoffeeMachine(object):
     currentUser = None
     #coffeeAuthorized: boolean = False
 
+    def TMP_initDatabase(self): # Temporary for initializing database without object
+        Database.loadUsers()
+
     def promptCard(self):
         print("Please, scan your card")
         # Uses the input from the user, which should be cardKey
         #   to check to which user it belongs by accessing the database
-        feedback = fakedata.getUser(input(cmdPrompt))
+        feedback = Database.getUser(input(cmdPrompt))
         # At this point we are not sure if the user was found
         #   thus, we make sure by checking whether the return
         #   value is of User type.
@@ -41,26 +45,43 @@ class CoffeeMachine(object):
             userInput = input(cmdPrompt)
 
             if userInput == "1": # Choose from menu
-                chooseCoffee()
+                self.chooseCoffee()
                 break
             elif userInput == "2": # Custom
-                buildCoffee()
+                self.buildCoffee()
                 break
             elif userInput == "0": # Exit the loop
                 break
             else:
-                print("Unexpected input")
+                print("Unexpected input.")
 
     def buildCoffee(self):
         pass
 
     def chooseCoffee(self):
-        pass
+        menu = Database.getMenu()
+        while True:
+            print("Available coffees:")
+            for key, coffee in menu.items():
+                print(f"{key}\t: {coffee.name} for {coffee.price} kr.")
+            print("0\t: <- Go back")
+            print("Select the coffee you want")
+            userInput = input(cmdPrompt)
+
+            if userInput in menu:
+                print(f"debug: you selected {menu[userInput].name}")
+                break
+            elif userInput == "0":
+                self.chooseDelivery()
+                return
+            else:
+                print("Unexpected input.")
 
     def checkout(self):
         pass
-
-
+# Main executing code
 machine = CoffeeMachine()
+
+machine.TMP_initDatabase()
 machine.promptCard()
 machine.chooseDelivery()

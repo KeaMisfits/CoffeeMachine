@@ -1,5 +1,5 @@
 #####################
-# CSV Structure
+# CSV Structure for users.csv
 # Col 1         col 2           col 3           col 4 [%Y-%m-%d]    col 5
 # cardKey       name            surname         expirationDate      lastCoffeeDate
 #
@@ -36,7 +36,12 @@ def loadUsers():
     #  as the key.
     for userLine in allUsers:
         # We initialize the user with valus from the list
-        newUser = User(cardKey = userLine[0], name = userLine[1], surname = userLine[2], expiration = userLine[3], lastFreeCoffeeDate = userLine[4])
+        newUser = User(cardKey = userLine[0],
+         name = userLine[1],
+         surname = userLine[2],
+         expiration = datetime.strptime(userLine[3], "%Y-%m-%d").date(),
+         lastFreeCoffeeDate = datetime.strptime(userLine[4], "%Y-%m-%d").date()
+        )
         users[newUser.cardKey] = newUser # Adds the newUser to the dictionary
 
 ###############################
@@ -46,14 +51,15 @@ def loadUsers():
 # Write users
 # TODO. Implement a backup feature in the method.
 def writeUsers():
-    file = open(filenameUsers, "w+")
+    # We use the "w+" to open and truncate the file
+    # We also use newline="" so that the writer does not make empty gaps
+    file = open(filenameUsers, "w+", newline="")
     writer = csv.writer(file, delimiter = ",")
 
     # We loop through all of the items in our users dictionary.
-    for userTuple in users.items():
+    for key, user in users.items():
         # The items() method returns a tuple {key, value}. We need only the value
         #  thus we take the second value of the tuple to be our user object.
-        user = userTuple[1]
         # Make a list from one user
         userAsList = [user.cardKey, user.name, user.surname, user.expiration, user.lastFreeCoffeeDate]
         # Write the list as a new line in the file.
@@ -63,28 +69,23 @@ def writeUsers():
 
 ###############################
 # Accessers
+#   Returns usser object from all user data
 def getUser(cardKey):
     return users[cardKey]
-
+#   Returns menu dictionary
+def getMenu():
+    return menu
+#   Returns Coffee object from the menu.
+#    TODO: may be useless
 def getMenuCoffee(nameId):
     return menu[nameId]
 
 ###############################
-loadUsers()
-print(users)
-
-print(users.get("qwerty123").name)
-
-users["abcabc123"] = User("abcabc123", name = "Jason", surname = "Statham")
-
-writeUsers()
-
-print("Done!")
 
 #################
 # #Date parser test
 # dateInString = str(date(2020,10,1))
 # print(f"orginal: {dateInString}")
-# dateFromString = datetime.strptime(dateInString, "%Y-%m-%d").date()
+#dateFromString = datetime.strptime(dateInString, "%Y-%m-%d").date()
 #
 # print(f"converted {dateFromString}")
