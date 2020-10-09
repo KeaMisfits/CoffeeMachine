@@ -10,14 +10,16 @@ class User(object):
 	cardKey = None
 	# ---
 
-	expirationDate = date(1990, 1, 1)
+	expiration = date(1990, 1, 1)
 	lastFreeCoffeeDate = date(1990, 1, 1)
 
-	def __init__(self, cardKey, name = "Unknown", surname = "Unknown"):
+	def __init__(self, cardKey, name = "Unknown", surname = "Unknown", expiration = date(1990,1,1), lastFreeCoffeeDate = date(1990,1,1)):
 		self.cardKey = cardKey
 		self.name = name
 		self.surname = surname
-
+		self.expiration = expiration
+		self.lastFreeCoffeeDate = lastFreeCoffeeDate
+		
 	def isActiveMember(self):
 		if self.expiration > date.today(): # Checks if expiration date is later than today.
 			return True
