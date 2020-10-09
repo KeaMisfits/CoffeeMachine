@@ -98,6 +98,7 @@ def getBankCards():
 def getMenuCoffee(nameId):
     return menu[nameId]
 
+
 ###############################
 # Mutators and appenders
 def addOrder(order):
@@ -108,6 +109,69 @@ def addOrder(order):
         print(f"WARNING in {__name__} at {addOrder.__name__}: "
         + "The input parameter is not of type Order"
         )
+################################
+
+
+
+################################
+# Orders CSV Structure
+# Colum1,  Column2, Column3
+# orderId, orderDate, orderRevenue
+#
+################################\
+global filenameOrder
+filenameOrder = "orders.csv"
+
+global orders
+orders = {}
+
+#loadOrders
+# This function load orders from order file to a dictionary
+def loadOrders():
+    orderfile = open(filenameOrder, "r")
+    eachOrder = list(csv.reader(orderfile))
+    print(eachOrder)
+    for userLine in eachOrder:
+         # We initialize the user with valus from the list
+         newOrder = Order(date = datetime.strptime(userLine[1], "%Y-%m-%d").date(),revenue = float(userLine[2]))
+         orders[newOrder.id] = newOrder
+
+#writeOrders
+# This function writes orders to a dictionary
+def writeOrders():
+    file = open(filenameOrder, "w+", newline = "")
+    writer = csv.writer(file, delimiter = ",")
+
+    for id, order in orders.items():
+        ordersList = [order.id, order.date, order.revenue]
+        writer.writerow(ordersList)
+
+
+########
+# TEST #
+########
+loadOrders()
+print(orders)
+print(orders[1].date)
+
+print(users)
+newOrder = Order(date = date(2020,2,9), revenue = 3 )
+orders[newOrder.id] = newOrder
+
+orders[getNextId] = Order( date = date(2020,2,9), revenue = 3 )
+orders[getNextId] = Order( date = date(2020,1,9), revenue = 18 )
+writeOrders()
+
+loadUsers()
+print(users)
+
+print(users.get("qwerty123").name)
+
+users["abcabc123"] = User("abcabc123", name = "Jason", surname = "Statham")
+
+writeUsers()
+
+print("Done!")
 #################
 
 # #Date parser test
