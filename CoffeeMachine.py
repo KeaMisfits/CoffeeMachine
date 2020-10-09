@@ -30,7 +30,7 @@ class CoffeeMachine(object):
             surname = "Smith"
             )
 
-            newUser.expirationDate
+            newUser.expiration
 
 
             return newUser
