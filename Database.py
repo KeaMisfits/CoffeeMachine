@@ -6,12 +6,23 @@
 from datetime import datetime, date
 import csv
 from user import User
+from Coffee import Coffee
 
+# Filenames
 global filenameUsers
 filenameUsers = "users.csv"
 
+# Data from files
 global users
 users = {}
+
+#################
+# Hard-coded data
+#   Menu has key for coffeNameId and Coffee as value
+menu = {
+"latte": Coffee("latte", "Latte", 12.50),
+"capuchino": Coffee("capuchino", "Capuchino", 15.00)
+}
 
 ###############################
 # Load users
@@ -49,9 +60,16 @@ def writeUsers():
         writer.writerow(userAsList)
 
 ###############################
+
+###############################
+# Accessers
 def getUser(cardKey):
     return users[cardKey]
 
+def getMenuCoffee(nameId):
+    return menu[nameId]
+
+###############################
 loadUsers()
 print(users)
 
