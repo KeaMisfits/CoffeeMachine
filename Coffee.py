@@ -2,8 +2,8 @@
 
 class Coffee(object):
 
-    def __init__(self, nameId, label = "Unknown", price = 0.00):
+    def __init__(self, nameId, name = "Unknown", price = 0.00):
         self.nameId = nameId
-        self.label = label
+        self.name = name
         self.size = size
         self.price = price
