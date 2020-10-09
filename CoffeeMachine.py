@@ -20,6 +20,7 @@ class CoffeeMachine(object):
 
     def TMP_initDatabase(self): # Temporary for initializing database without object
         Database.loadUsers()
+        Database.loadOrders()
     #########
     # Prompts the user to provide the student card
     # Step 1
@@ -121,9 +122,8 @@ class CoffeeMachine(object):
             while tryToPay:
                 # Calls a function that will prompt credit card info, verify
                 #  with the bank and return True/False based on success.
-                cardAccepted = self.payWithCard(coffee.price) # Boolean
+                cardAccepted = self.payWithCard(order) # Boolean
                 if cardAccepted:
-                    print("debug: Card accepted")
                     break
                     # Note, that this will continue execution outside else.
                 else:
@@ -147,8 +147,9 @@ class CoffeeMachine(object):
     # Prompts credit card info and verifies the payment with bank
     # Returns True if payemnt is successful.
     # Returns False if payment is unsuccessful
-    def payWithCard(self, amount):
-        print(f"Total: {amount} kr."
+    def payWithCard(self, order):
+        print(f"\n\nOrder id: {order.id}"
+            + f"\nTotal: {order.revenue} kr."
             + "\nPlease input your credit card details."
             + "\n(User hyphens(-) to separate digit pairs)"
         )
@@ -177,3 +178,6 @@ machine = CoffeeMachine()
 
 machine.TMP_initDatabase()
 machine.promptCard()
+
+Database.writeUsers()
+Database.writeOrders()
