@@ -13,7 +13,7 @@ class User(object):
 	expirationDate = date(1990, 1, 1)
 	lastFreeCoffeeDate = date(1990, 1, 1)
 
-	def __init__(self, cardKey, name = "Unknown", surname = "Unknown"):
+	def __init__(self, cardKey, name = "Unknown", surname = "Unknown", expiration = date(1990,1,1), lastFreeCoffeeDate = date(1990,1,1)):
 		self.cardKey = cardKey
 		self.name = name
 		self.surname = surname
