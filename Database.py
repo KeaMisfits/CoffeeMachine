@@ -49,7 +49,8 @@ def writeUsers():
         writer.writerow(userAsList)
 
 ###############################
-
+def getUser(cardKey):
+    return users[cardKey]
 
 loadUsers()
 print(users)
