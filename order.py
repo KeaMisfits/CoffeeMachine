@@ -1,6 +1,14 @@
 # order.py
-
 from datetime import date
+
+nextId = 0
+
+
+def getNextId():
+    global nextId
+    nextId += 1
+    return nextId
+
 
 class Order(object):
 ##################### class start
@@ -14,13 +22,18 @@ class Order(object):
      # orderDate = myVariable.date
      # orderRevenue = myVariable.revenue
      ###
-     def __init__(self, date = date(1990,1,1), revenue = 0):
-         self.date = date
-         self.revenue = revenue
+    def __init__(self, id = 0, date = date(1990,1,1), revenue = 0):
+        self.id = getNextId()
+        self.date = date
+        self.revenue = revenue
+    def myGet(self):
+        print(self.id,",",self.date,",",self.revenue)
+
 
 ##################### class end
 
-# List of orders. This is your FAKE DATA. You can add more order.
+# List of orders. This is your Fake data
+"""
 allOrders = [
 Order(date(2020,10,1), 3.50),
 Order(date(2020,10,1), 2.95),
@@ -29,15 +42,8 @@ Order(date(2020,10,5), 1.50),
 Order(date(2020,10,5), 2.95),
 Order(date(2020,10,5), 7.95),
 ]
-totalRevenueForOctober1 = 0
+"""
 
-for i in range(5):
-    if allOrders[i].date == date(2020,10,1):
-         totalRevenueForOctober1 += allOrders[1].revenue
-
-print(totalRevenueForOctober1)
-
-oneOrder = Order()
-print(oneOrder.revenue)
-print(oneOrder.date)
-
+#oneOrder = Order()
+#print(oneOrder.revenue)
+#rint(oneOrder.date)
