@@ -148,7 +148,7 @@ class CoffeeMachine(object):
     # Returns True if payemnt is successful.
     # Returns False if payment is unsuccessful
     def payWithCard(self, amount):
-        print(f"Total: {amount} kr."
+        print(f"Total: {amount} kr."z
             + "\nPlease input your credit card details."
             + "\n(User hyphens(-) to separate digit pairs)"
         )
