@@ -4,7 +4,11 @@ import Database
 import statistics
 from datetime import date, timedelta
 from order import Order
+<<<<<<< HEAD
 import calendar
+=======
+from CustomCoffee import CustomCoffee
+>>>>>>> 49250381f91b2affd6c228b6c7766816facdfc1b
 
 class CoffeeMachine(object):
     # This declared cmdPrompt as a global (static) variable,
@@ -104,9 +108,111 @@ class CoffeeMachine(object):
                 print("Unexpected input.")
 
     def buildCoffee(self):
+<<<<<<< HEAD
         pass
     #########
     # Prompts the user to select which coffee from the menu he/she wants
+=======
+        # Prcess of creating own a coffees
+        # User input determines diffrent Layers
+        price = 0
+        global firstLayer
+        global secondLayer
+        global thirdLayer
+
+        print("First layer : BASE")
+        print()
+        print("1.One espresso shot")
+        print()
+        print("2.Two espresso shots")
+        print()
+        print("0. Go back")
+        firstLayer = input(cmdPrompt)
+        while firstLayer not in ("1", "2","0"):
+            print("try again")
+            firstLayer = input(cmdPrompt)
+        else:
+            if firstLayer == "1":
+                firstLayer = "One espresso shot"
+                price += 10
+            elif firstLayer == "2":
+                firstLayer = "Two espresso shots"
+                price += 14
+            elif firstLayer == "0":
+                return self.chooseDelivery()
+        print ("Second layer: MILK")
+        print()
+        print("1.No milk")
+        print()
+        print("2.Regular milk")
+        print()
+        print("3.Skinny milk")
+        print()
+        print("4.Soy milk")
+        print()
+        secondLayer = input(cmdPrompt)
+        while secondLayer not in ("1","2","3","4"):
+            print("try again")
+            secondLayer = input(cmdPrompt)
+        else:
+            if secondLayer == "1":
+                secondLayer = "No milk"
+            elif secondLayer == "2":
+                price += 3
+                secondLayer = "Regural milk"
+            elif secondLayer == "3":
+                secondLayer = "Skinny milk"
+                price +=3
+            elif secondLayer == "4":
+                secondLayer = "Soy milk"
+                price +=5
+        print ("Third layer: TOPPINGS")
+        print()
+        print("1.No topping")
+        print()
+        print("2.Vanilla Syrup")
+        print()
+        print("3.Caramel Syrup")
+        print()
+        print("4.Hazelnut Syrup")
+        print()
+        thirdLayer = input (cmdPrompt)
+        while thirdLayer not in ("1","2","3","4"):
+            print("try again")
+            thirdLayer = input(cmdPrompt)
+        else:
+            if thirdLayer == "1":
+                thirdLayer = "No topping"
+            elif thirdLayer == "2":
+                thirdLayer = "Vanilla Syrup"
+                price += 4
+            elif thirdLayer == "3":
+                thirdLayer = "Caramel Syrup"
+                price +=4
+            elif thirdLayer == "4":
+                thirdLayer = "Hazelnut Syrup"
+                price +=4
+        print("How Do you name your coffe?")
+        print ("Leave blank if you don't want to")
+        customCoffeeName = input(cmdPrompt)
+        print ("Your coffe:", customCoffeeName)
+        print(firstLayer,"with",secondLayer,"and", thirdLayer)
+        print("price:", price)
+        print()
+        print("press 1 to continue")
+        print("press 0 to go back")
+        decisionInput = input(cmdPrompt)
+        if decisionInput == "1":
+            myCustomCoffee = CustomCoffee(nameId = 0, name = customCoffeeName, price = price, firstLayer = firstLayer, secondLayer = secondLayer, thirdLayer = thirdLayer)
+            self.checkout(myCustomCoffee)
+        elif decisionInput == "0":
+            return self.buildCoffee()
+
+
+
+
+    # Prompts the user to select one of the delivery methods
+>>>>>>> 49250381f91b2affd6c228b6c7766816facdfc1b
     # Step 3.1
     # Proceeds to checkout with selected Coffee object
     # Goes to step 4
@@ -194,6 +300,7 @@ def payWithCard(order):
                 # Returns true if its a match
                 return True
         print("Invalid credit card detail.")
+<<<<<<< HEAD
         # Loop to retry input if the input is unexpected
         while True: # Loop will be stopped by 'break'
             print("Do you want to try again? (yes/no)")
@@ -206,6 +313,21 @@ def payWithCard(order):
             else: # Does not break any loop
                 print("Unexpected input.")
     return False
+=======
+        return False
+    def brewCoffee(self, coffee):
+        print("\n"
+        + "\n-------------------------------------"
+        + f"\nHere is your {coffee.name}")
+        print()
+        if isinstance(coffee, CustomCoffee):
+            print(firstLayer,"with",secondLayer,"and", thirdLayer)
+        print("""
+Enjoy!
+-------------------------------------
+        """)
+
+>>>>>>> 49250381f91b2affd6c228b6c7766816facdfc1b
 # Calling code
 machine = CoffeeMachine()
 
