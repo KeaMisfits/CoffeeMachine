@@ -23,6 +23,7 @@ orders = {}
 # Hard-coded data
 #   Menu has key for coffeNameId and Coffee as value
 menu = {
+"espresso": Coffee("espresso", "Espresso", 10.00),
 "latte": Coffee("latte", "Latte", 12.50),
 "capuchino": Coffee("capuchino", "Capuchino", 15.00)
 }
