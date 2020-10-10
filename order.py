@@ -20,7 +20,11 @@ class Order(object):
 
 ##################### class end
 
+<<<<<<< HEAD
 # List of orders. This is your FAKE DATA. You can add more order.
+=======
+# List of orders. This is your Fake data
+>>>>>>> airidasd
 allOrders = [
 Order(date(2020,10,1), 3.50),
 Order(date(2020,10,1), 2.95),
@@ -29,3 +33,11 @@ Order(date(2020,10,5), 1.50),
 Order(date(2020,10,5), 2.95),
 Order(date(2020,10,5), 7.95),
 ]
+<<<<<<< HEAD
+=======
+
+
+oneOrder = Order()
+print(oneOrder.revenue)
+print(oneOrder.date)
+>>>>>>> airidasd
