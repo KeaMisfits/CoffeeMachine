@@ -34,6 +34,8 @@ bankCards = {
 "2222-2222-2222-2222": "222",
 "3333-3333-3333-3333": "333"
 }
+# Ungrouped data
+membershipPrice = 250.00
 # /Hard-coded data
 #################
 
@@ -87,6 +89,11 @@ def writeUsers():
 #   Returns usser object from all user data
 def getUser(cardKey):
     return users[cardKey]
+#   Returns True if there is a user in the database with the given cardKey.
+def isUser(cardKey):
+    if cardKey in users:
+        return True
+    return False
 #   Returns menu dictionary
 def getMenu():
     return menu
@@ -97,17 +104,25 @@ def getBankCards():
 #    TODO: may be useless
 def getMenuCoffee(nameId):
     return menu[nameId]
-
+###############################
 
 ###############################
 # Mutators and appenders
 def addOrder(order):
-    if isinstance(order, Order):
-        orders[order.id] = order # TODO replace 9999 with order.id
-    else:
+    if isinstance(order, Order): # Validate parameter input
+        orders[order.id] = order
+    else: # If the parameter input is invalid, show a warning and don't add
         # Show warning message
         print(f"WARNING in {__name__} at {addOrder.__name__}: "
-        + "The input parameter is not of type Order"
+        + "The input parameter is not of type Order. Database not updated."
+        )
+def addUser(user):
+    if isinstance(user, User): # Validate parameter input
+        users[user.cardKey] = user
+    else: # If the parameter input is invalid, show a warning and don't add
+        # Show warning message
+        print(f"WARNING in {__name__} at {addOrder.__name__}: "
+        + "The input parameter is not of type User. Database not updated."
         )
 ################################
 
@@ -143,17 +158,7 @@ def writeOrders():
         writer.writerow(ordersList)
 
 
-########
-# TEST #
-########
-# newOrder = Order(date = date(2020,2,9), revenue = 3 )
-# orders[newOrder.id] = newOrder
 
-##
-
-# #Date parser test
-# dateInString = str(date(2020,10,1))
-# print(f"orginal: {dateInString}")
-#dateFromString = datetime.strptime(dateInString, "%Y-%m-%d").date()
-#
-# print(f"converted {dateFromString}")
+def writeAll():
+    writeOrders()
+    writeUsers()

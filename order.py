@@ -23,6 +23,7 @@ class Order(object):
     def __init__(self, id = 0, date = date(1990,1,1), revenue = 0):
         self.id = getNextId()
         self.date = date
+        # Revenue will be 0 if coffee is enjoyed for free due to membership.
         self.revenue = revenue
     # def myGet(self):
     #     print(self.id,",",self.date,",",self.revenue)

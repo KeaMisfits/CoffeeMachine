@@ -2,67 +2,100 @@
 from user import User
 import fakedata
 import Database
-from datetime import date
+from datetime import date, timedelta
 from order import Order
+import calendar
 
 class CoffeeMachine(object):
-
     # This declared cmdPrompt as a global (static) variable,
     #   meaning that its going to be the same across all isntances
     #   of the CoffeeMachine objects.
     #   This also means that it can be accessed without self. :)
     global cmdPrompt
     cmdPrompt = "> "
-
     #availableProducts: dict
-    #cardKey: str
-    currentUser = None
 
-    def TMP_initDatabase(self): # Temporary for initializing database without object
-        Database.loadUsers()
-        Database.loadOrders()
+    currentUser = None
+    #########
+    # A method to manually create or overwrite a user using command line input
+    # The method does two things with the new user:
+    #  Adds it to the databse;
+    #  Returns the refference to the new user.
+    def createUser(self, cardKey):
+        # Creates new user using the input from command line.
+        newUser = User(cardKey,
+            name = input("Name: " + cmdPrompt),
+            surname = input("Surname: " + cmdPrompt)
+        )
+        if not isinstance(newUser, User): # Validate the user
+            raise Exception("ERROR: User creation failed!")
+
+        Database.addUser(newUser) # Add the user to the database
+        return newUser # Return the newUse
+
+    def buyMembership(self, user):
+        order = Order(date = date.today(), revenue = Database.membershipPrice)
+        # Pay with card will return True if payment is successful.
+        if payWithCard(order):
+            user.expiration = date.today() + timedelta(days = 30)
+            Database.addOrder(order)
+            Database.writeAll() # Write database values to files immediatelly
+            print(f"Membership is now valid until {user.expiration}")
+        else:
+            print("Membership purchase operation aborted")
+        # In any case returns to the choose delivery part.
+        return self.chooseDelivery()
     #########
     # Prompts the user to provide the student card
     # Step 1
-    # Checks whether the card is valid
-    # If card is valid continues to Step 2
+    # Checks whether the card is registered in the data base
+    # If the user is not registered in the database, it creates the user
+    #  (in this prototype case, it will prompt for manual name, surname input)
+    # If card is finally recognized continues to Step 2
     # TODO: Implement loop to try again when failed
     def promptCard(self):
         print("Please, scan your card")
         # Uses the input from the user, which should be cardKey
         #   to check to which user it belongs by accessing the database
-        feedback = Database.getUser(input(cmdPrompt))
-        # At this point we are not sure if the user was found
-        #   thus, we make sure by checking whether the return
-        #   value is of User type.
-        if isinstance(feedback, User):
-            # If condition passes we know that its a valid user
-            self.currentUser = feedback
-            machine.chooseDelivery()
+        userInput = input(cmdPrompt)
+        # If the user exists in the database, set it to currentUser imediatelly
+        if Database.isUser(userInput):
+            self.currentUser = Database.getUser(userInput)
+        # If the user does not exist, create the user and then set it to current
         else:
-            # The condition didn't pass. It must be an error.
-            print("Error: Scan failed")
+            # The user does not exist in the database.
+            # Prompts to create a new user
+            print("User not found in the database. Resgistering new user.")
+            self.currentUser = self.createUser(userInput)
+        print(f"Hi {self.currentUser.name}")
+        return machine.chooseDelivery() # Fianlly, proceed.
 
     #########
     # Prompts the user to select one of the delivery methods
+    #
     # Step 2
     # Its return is based on the user userInput
     # Goes to Steps 3.x
     def chooseDelivery(self):
-        print(f"Hi {self.currentUser.name}, what delivery option would you like?")
-
+        print("What delivery option would you like?")
         # Loop here so that if the userInput is unexpected, it will ask again.
         while True: # The loop will exit using 'return' statements.
-            print("Type '1' for menu or '2' for custom. Type 0 to exit")
+            print("menu: Choose a coffee from menu. "
+            + "\ncustom: Create a custom coffee"
+            + "\nmembership: Buy or extend a memberhip"
+            + "\nback: Exit the application")
+
             userInput = input(cmdPrompt)
             # Based on userInput we determine what to do next
-            if userInput == "1": # Choose from menu
+            if userInput == "menu": # Choose from menu
                 # Returning a method means that we are ending what left in this
                 #  method and continuing it with the following
                 return self.chooseCoffee()
-            elif userInput == "2": # Custom
+            elif userInput == "custom": # Custom
                 return self.buildCoffee()
-            elif userInput == "0": # Exit the loop
+            elif userInput == "membership": # Update membership
+                return self.buyMembership(self.currentUser)
+            elif userInput == "exit" or userInput == "back" : # Exit the loop
                 break
             else:
                 print("Unexpected input.")
@@ -70,7 +103,7 @@ class CoffeeMachine(object):
     def buildCoffee(self):
         pass
     #########
-    # Prompts the user to select one of the delivery methods
+    # Prompts the user to select which coffee from the menu he/she wants
     # Step 3.1
     # Proceeds to checkout with selected Coffee object
     # Goes to step 4
@@ -80,12 +113,11 @@ class CoffeeMachine(object):
             print("Available coffees:")
             for key, coffee in menu.items():
                 print(f"{key}: {coffee.name} for {coffee.price} kr.")
-            print("0: <- Go back")
+            print("back: Go back")
             print("Select the coffee you want")
             userInput = input(cmdPrompt)
 
             if userInput in menu:
-                print(f"debug: you selected {menu[userInput].name}")
                 return self.checkout(menu[userInput])
             elif userInput == "0":
                 return self.chooseDelivery()
@@ -118,46 +150,35 @@ class CoffeeMachine(object):
             order.revenue = 0.00
         else:
             # OPTION 2: Pay with card
-            tryToPay = True # Flag used to indicate whether user wants to retry
-            while tryToPay:
-                # Calls a function that will prompt credit card info, verify
-                #  with the bank and return True/False based on success.
-                cardAccepted = self.payWithCard(order) # Boolean
-                if cardAccepted:
-                    break
-                    # Note, that this will continue execution outside else.
-                else:
-                    # Loop to retry input if the input is unexpected
-                    while True: # Loop will be stopped by 'break'
-                        print("Do you want to try again? (yes/no)")
-                        userInput = input(cmdPrompt)
-                        if userInput == "yes": # Breaks out of one loop.
-                            tryToPay = True
-                            break
-                        elif userInput == "no": # Breaks out of both loops.
-                            tryToPay = False
-                            break
-                        else: # Does not break any loop
-                            print("Unexpected input.")
+            if payWithCard(order):
+                pass # Just let it run the following code after if.
+            else:
+                return self.chooseCoffee()
         # Register the order in the database TODO
         Database.addOrder(order)
         # Brew the coffee
         self.brewCoffee(coffee)
     #########
     # Prompts credit card info and verifies the payment with bank
+    # This is a universal method for paying with card, meaning that it can
+    #  be used to pay for coffee and membership too
     # Returns True if payemnt is successful.
     # Returns False if payment is unsuccessful
-<<<<<<< HEAD
-    def payWithCard(self, amount):
-        print(f"Total: {amount} kr."z
-=======
-    def payWithCard(self, order):
-        print(f"\n\nOrder id: {order.id}"
-            + f"\nTotal: {order.revenue} kr."
->>>>>>> main
-            + "\nPlease input your credit card details."
-            + "\n(User hyphens(-) to separate digit pairs)"
+    def brewCoffee(self, coffee):
+        print("\n"
+        + "\n-------------------------------------"
+        + f"\nHere is your {coffee.name}."
+        + "\nEnjoy!"
+        + "\n-------------------------------------\n"
         )
+
+def payWithCard(order):
+    print(f"\n\nOrder id: {order.id}"
+        + f"\nTotal: {order.revenue} kr."
+        + "\nPlease input your credit card details."
+        + "\n(User hyphens(-) to separate digit pairs)"
+    )
+    while True:
         cardNumber = input("Number: " + cmdPrompt)
         CVC = input("CVC: " + cmdPrompt)
 
@@ -170,19 +191,27 @@ class CoffeeMachine(object):
                 # Returns true if its a match
                 return True
         print("Invalid credit card detail.")
-        return False
-    def brewCoffee(self, coffee):
-        print("\n"
-        + "\n-------------------------------------"
-        + f"\nHere is your {coffee.name}."
-        + "\nEnjoy!"
-        + "\n-------------------------------------\n"
-        )
+        # Loop to retry input if the input is unexpected
+        while True: # Loop will be stopped by 'break'
+            print("Do you want to try again? (yes/no)")
+            userInput = input(cmdPrompt)
+            if userInput == "yes": # Breaks out of one loop.
+                break
+            elif userInput == "no": # Breaks out of both loops.
+                return False
+                break
+            else: # Does not break any loop
+                print("Unexpected input.")
+    return False
 # Calling code
 machine = CoffeeMachine()
 
-machine.TMP_initDatabase()
+#Load from database
+Database.loadUsers()
+Database.loadOrders()
+
 machine.promptCard()
 
+# Write database values to files.
 Database.writeUsers()
 Database.writeOrders()
