@@ -92,6 +92,8 @@ class CoffeeMachine(object):
     def chooseDelivery(self):
         while True:
             print("\n======================================\n")
+            print("        CHOOSE AN OPTION            \n")
+            print("---------------------------------------\n")
             print("What delivery option would you like?\n")
             print("(Type in function name to continue)\n")
             print("____________________________________\n")
@@ -252,11 +254,13 @@ class CoffeeMachine(object):
             userInput = input(cmdPrompt)
 
             if userInput in menu:
+                cls()
                 return self.checkout(menu[userInput])
             elif userInput == "back":
                 cls()
                 return self.chooseDelivery()
             else:
+                cls()
                 print("Unexpected input.")
     #########
     # Step 4
@@ -300,12 +304,19 @@ class CoffeeMachine(object):
     # Returns True if payemnt is successful.
     # Returns False if payment is unsuccessful
     def brewCoffee(self, coffee):
-        print("\n"
+        cls()
+        print("\n====================================\n")
+        print("           SERVING COFFEE        ")
+        print(""
         + "\n-------------------------------------"
-        + f"\nHere is your {coffee.name}."
-        + "\nEnjoy!"
-        + "\n-------------------------------------\n"
-        )
+        + f"\n    Here is your {coffee.name}")
+        print()
+        if isinstance(coffee, CustomCoffee):
+            print(firstLayer,"with",secondLayer,"and", thirdLayer)
+        print("""
+            Enjoy!
+-------------------------------------
+        """)
 
 def payWithCard(order):
     print("\n======================================\n")
@@ -332,17 +343,7 @@ def payWithCard(order):
                 return True
         print("Invalid credit card detail.")
         return False
-    def brewCoffee(self, coffee):
-        print("\n"
-        + "\n-------------------------------------"
-        + f"\nHere is your {coffee.name}")
-        print()
-        if isinstance(coffee, CustomCoffee):
-            print(firstLayer,"with",secondLayer,"and", thirdLayer)
-        print("""
-Enjoy!
--------------------------------------
-        """)
+
 
 # Calling code
 machine = CoffeeMachine()
