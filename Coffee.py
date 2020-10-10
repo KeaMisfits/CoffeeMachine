@@ -2,7 +2,7 @@
 
 class Coffee(object):
 
-    def __init__(self, nameId, name = "Unknown", price = 0.00):
+    def __init__(self, nameId = "CustomCoffee", name = "Unknown", price = 0.00):
         self.nameId = nameId
         self.name = name
         self.price = price

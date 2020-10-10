@@ -4,6 +4,7 @@ import fakedata
 import Database
 from datetime import date
 from order import Order
+from CustomCoffee import CustomCoffee
 
 class CoffeeMachine(object):
 
@@ -68,8 +69,104 @@ class CoffeeMachine(object):
                 print("Unexpected input.")
 
     def buildCoffee(self):
-        pass
-    #########
+        # Prcess of creating own a coffees
+        # User input determines diffrent Layers
+        price = 0
+        global firstLayer
+        global secondLayer
+        global thirdLayer
+
+        print("First layer : BASE")
+        print()
+        print("1.One espresso shot")
+        print()
+        print("2.Two espresso shots")
+        print()
+        print("0. Go back")
+        firstLayer = input(cmdPrompt)
+        while firstLayer not in ("1", "2","0"):
+            print("try again")
+            firstLayer = input(cmdPrompt)
+        else:
+            if firstLayer == "1":
+                firstLayer = "One espresso shot"
+                price += 10
+            elif firstLayer == "2":
+                firstLayer = "Two espresso shots"
+                price += 14
+            elif firstLayer == "0":
+                return self.chooseDelivery()
+        print ("Second layer: MILK")
+        print()
+        print("1.No milk")
+        print()
+        print("2.Regular milk")
+        print()
+        print("3.Skinny milk")
+        print()
+        print("4.Soy milk")
+        print()
+        secondLayer = input(cmdPrompt)
+        while secondLayer not in ("1","2","3","4"):
+            print("try again")
+            secondLayer = input(cmdPrompt)
+        else:
+            if secondLayer == "1":
+                secondLayer = "No milk"
+            elif secondLayer == "2":
+                price += 3
+                secondLayer = "Regural milk"
+            elif secondLayer == "3":
+                secondLayer = "Skinny milk"
+                price +=3
+            elif secondLayer == "4":
+                secondLayer = "Soy milk"
+                price +=5
+        print ("Third layer: TOPPINGS")
+        print()
+        print("1.No topping")
+        print()
+        print("2.Vanilla Syrup")
+        print()
+        print("3.Caramel Syrup")
+        print()
+        print("4.Hazelnut Syrup")
+        print()
+        thirdLayer = input (cmdPrompt)
+        while thirdLayer not in ("1","2","3","4"):
+            print("try again")
+            thirdLayer = input(cmdPrompt)
+        else:
+            if thirdLayer == "1":
+                thirdLayer = "No topping"
+            elif thirdLayer == "2":
+                thirdLayer = "Vanilla Syrup"
+                price += 4
+            elif thirdLayer == "3":
+                thirdLayer = "Caramel Syrup"
+                price +=4
+            elif thirdLayer == "4":
+                thirdLayer = "Hazelnut Syrup"
+                price +=4
+        print("How Do you name your coffe?")
+        print ("Leave blank if you don't want to")
+        customCoffeeName = input(cmdPrompt)
+        print ("Your coffe:", customCoffeeName)
+        print(firstLayer,"with",secondLayer,"and", thirdLayer)
+        print("price:", price)
+        print()
+        print("press 1 to continue")
+        print("press 0 to go back")
+        decisionInput = input(cmdPrompt)
+        if decisionInput == "1":
+            myCustomCoffee = CustomCoffee(nameId = 0, name = customCoffeeName, price = price, firstLayer = firstLayer, secondLayer = secondLayer, thirdLayer = thirdLayer)
+            self.checkout(myCustomCoffee)
+        elif decisionInput == "0":
+            return self.buildCoffee()
+
+
+
+
     # Prompts the user to select one of the delivery methods
     # Step 3.1
     # Proceeds to checkout with selected Coffee object
@@ -169,10 +266,15 @@ class CoffeeMachine(object):
     def brewCoffee(self, coffee):
         print("\n"
         + "\n-------------------------------------"
-        + f"\nHere is your {coffee.name}."
-        + "\nEnjoy!"
-        + "\n-------------------------------------\n"
-        )
+        + f"\nHere is your {coffee.name}")
+        print()
+        if isinstance(coffee, CustomCoffee):
+            print(firstLayer,"with",secondLayer,"and", thirdLayer)
+        print("""
+Enjoy!
+-------------------------------------
+        """)
+
 # Calling code
 machine = CoffeeMachine()
 
