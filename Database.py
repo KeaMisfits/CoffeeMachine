@@ -162,5 +162,5 @@ def writeAll():
     writeUsers()
 
 # Initialize Database
-loadUsers()
-loadOrders()
+#loadUsers()
+#loadOrders()
