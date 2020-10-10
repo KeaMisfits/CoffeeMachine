@@ -4,11 +4,8 @@ import Database
 import statistics
 from datetime import date, timedelta
 from order import Order
-<<<<<<< HEAD
 import calendar
-=======
 from CustomCoffee import CustomCoffee
->>>>>>> 49250381f91b2affd6c228b6c7766816facdfc1b
 
 class CoffeeMachine(object):
     # This declared cmdPrompt as a global (static) variable,
@@ -108,11 +105,6 @@ class CoffeeMachine(object):
                 print("Unexpected input.")
 
     def buildCoffee(self):
-<<<<<<< HEAD
-        pass
-    #########
-    # Prompts the user to select which coffee from the menu he/she wants
-=======
         # Prcess of creating own a coffees
         # User input determines diffrent Layers
         price = 0
@@ -212,7 +204,6 @@ class CoffeeMachine(object):
 
 
     # Prompts the user to select one of the delivery methods
->>>>>>> 49250381f91b2affd6c228b6c7766816facdfc1b
     # Step 3.1
     # Proceeds to checkout with selected Coffee object
     # Goes to step 4
@@ -300,20 +291,6 @@ def payWithCard(order):
                 # Returns true if its a match
                 return True
         print("Invalid credit card detail.")
-<<<<<<< HEAD
-        # Loop to retry input if the input is unexpected
-        while True: # Loop will be stopped by 'break'
-            print("Do you want to try again? (yes/no)")
-            userInput = input(cmdPrompt)
-            if userInput == "yes": # Breaks out of one loop.
-                break
-            elif userInput == "no": # Breaks out of both loops.
-                return False
-                break
-            else: # Does not break any loop
-                print("Unexpected input.")
-    return False
-=======
         return False
     def brewCoffee(self, coffee):
         print("\n"
@@ -327,7 +304,6 @@ Enjoy!
 -------------------------------------
         """)
 
->>>>>>> 49250381f91b2affd6c228b6c7766816facdfc1b
 # Calling code
 machine = CoffeeMachine()
 
