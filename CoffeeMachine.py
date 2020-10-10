@@ -232,10 +232,6 @@ class CoffeeMachine(object):
         elif decisionInput == "0":
             cls()
             return self.buildCoffee()
-
-
-
-
     # Prompts the user to select one of the delivery methods
     # Step 3.1
     # Proceeds to checkout with selected Coffee object
@@ -342,8 +338,33 @@ def payWithCard(order):
                 # Returns true if its a match
                 return True
         print("Invalid credit card detail.")
+<<<<<<< HEAD
         return False
 
+=======
+        # Loop to retry input if the input is unexpected
+        while True: # Loop will be stopped by 'break'.
+            print("Do you want to try again? (yes/no)")
+            userInput = input(cmdPrompt)
+            if userInput == "yes": # Breaks out of one loop.
+                break
+            elif userInput == "no": # Breaks out of both loops.
+                return False
+                break
+            else: # Does not break any loop
+                print("Unexpected input.")
+    def brewCoffee(self, coffee):
+        print("\n"
+        + "\n-------------------------------------"
+        + f"\nHere is your {coffee.name}")
+        print()
+        if isinstance(coffee, CustomCoffee):
+            print(firstLayer,"with",secondLayer,"and", thirdLayer)
+        print("""
+Enjoy!
+-------------------------------------
+        """)
+>>>>>>> ac02a604f4c70b4c54068490952561a8812a8e28
 
 # Calling code
 machine = CoffeeMachine()
