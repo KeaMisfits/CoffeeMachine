@@ -6,6 +6,11 @@ from datetime import date, timedelta
 from order import Order
 import calendar
 from CustomCoffee import CustomCoffee
+import os
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+cls()
 
 class CoffeeMachine(object):
     # This declared cmdPrompt as a global (static) variable,
@@ -45,6 +50,7 @@ class CoffeeMachine(object):
         else:
             print("Membership purchase operation aborted")
         # In any case returns to the choose delivery part.
+        cls()
         return self.chooseDelivery()
     #########
     # Prompts the user to provide the student card
@@ -55,7 +61,10 @@ class CoffeeMachine(object):
     # If card is finally recognized continues to Step 2
     # TODO: Implement loop to try again when failed
     def promptCard(self):
-        print("Please, scan your card")
+        print("\n======================================\n")
+        print("       Please, scan your card \n")
+        print("======================================")
+        print("(Type in Card-Name to load existing one or create a new user)\n")
         # Uses the input from the user, which should be cardKey
         #   to check to which user it belongs by accessing the database
         userInput = input(cmdPrompt)
@@ -66,9 +75,12 @@ class CoffeeMachine(object):
         else:
             # The user does not exist in the database.
             # Prompts to create a new user
-            print("User not found in the database. Resgistering new user.")
+            print("======================================================\n")
+            print("User not found in the database. Resgistering new user.\n")
+            print("======================================================\n")
             self.currentUser = self.createUser(userInput)
         print(f"Hi {self.currentUser.name}")
+        cls()
         return machine.chooseDelivery() # Fianlly, proceed.
 
     #########
@@ -78,31 +90,42 @@ class CoffeeMachine(object):
     # Its return is based on the user userInput
     # Goes to Steps 3.x
     def chooseDelivery(self):
-        print("What delivery option would you like?")
-        # Loop here so that if the userInput is unexpected, it will ask again.
-        while True: # The loop will exit using 'return' statements.
-            print("menu: Choose a coffee from menu. "
-            + "\ncustom: Create a custom coffee"
-            + "\nmembership: Buy or extend a memberhip"
-            + "\nstats: See the statistics"
-            + "\nback: Exit the application")
+        while True:
+            print("\n======================================\n")
+            print("What delivery option would you like?\n")
+            print("(Type in function name to continue)\n")
+            print("____________________________________\n")
+            # Loop here so that if the userInput is unexpected, it will ask again.
+            # The loop will exit using 'return' statements.
+            print("menu: Choose a coffee from menu. \n"
+            + "\ncustom: Create a custom coffee\n"
+            + "\nmembership: Buy or extend a memberhip\n"
+            + "\nstats: See the statistics\n"
+            + "\nback: Exit the application\n")
+            print("======================================\n")
 
             userInput = input(cmdPrompt)
             # Based on userInput we determine what to do next
             if userInput == "menu": # Choose from menu
                 # Returning a method means that we are ending what left in this
                 #  method and continuing it with the following
+                cls()
                 return self.chooseCoffee()
             elif userInput == "custom": # Custom
+                cls()
                 return self.buildCoffee()
             elif userInput == "membership": # Update membership
+                cls()
                 return self.buyMembership(self.currentUser)
             elif userInput == "stats":
+                cls()
                 return statistics.showStatistics()
             elif userInput == "exit" or userInput == "back" : # Exit the loop
                 break
             else:
+                cls()
                 print("Unexpected input.")
+
 
     def buildCoffee(self):
         # Prcess of creating own a coffees
@@ -111,14 +134,13 @@ class CoffeeMachine(object):
         global firstLayer
         global secondLayer
         global thirdLayer
-
-        print("First layer : BASE")
-        print()
-        print("1.One espresso shot")
-        print()
-        print("2.Two espresso shots")
-        print()
-        print("0. Go back")
+        print("\n======================================\n")
+        print("        MAKE YOUR OWN COFFEE             \n")
+        print("---------------------------------------\n")
+        print("FIRST LAYER : BASE\n\n")
+        print("1.One espresso shot\n")
+        print("2.Two espresso shots\n")
+        print("0. Go back\n")
         firstLayer = input(cmdPrompt)
         while firstLayer not in ("1", "2","0"):
             print("try again")
@@ -131,17 +153,17 @@ class CoffeeMachine(object):
                 firstLayer = "Two espresso shots"
                 price += 14
             elif firstLayer == "0":
+                cls()
                 return self.chooseDelivery()
-        print ("Second layer: MILK")
-        print()
-        print("1.No milk")
-        print()
-        print("2.Regular milk")
-        print()
-        print("3.Skinny milk")
-        print()
-        print("4.Soy milk")
-        print()
+        cls()
+        print("\n======================================\n")
+        print("        MAKE YOUR OWN COFFEE             \n")
+        print("---------------------------------------\n")
+        print ("SECOND LAYER: MILK\n\n")
+        print("1.No milk\n")
+        print("2.Regular milk\n")
+        print("3.Skinny milk\n")
+        print("4.Soy milk\n")
         secondLayer = input(cmdPrompt)
         while secondLayer not in ("1","2","3","4"):
             print("try again")
@@ -158,16 +180,15 @@ class CoffeeMachine(object):
             elif secondLayer == "4":
                 secondLayer = "Soy milk"
                 price +=5
-        print ("Third layer: TOPPINGS")
-        print()
-        print("1.No topping")
-        print()
-        print("2.Vanilla Syrup")
-        print()
-        print("3.Caramel Syrup")
-        print()
-        print("4.Hazelnut Syrup")
-        print()
+        cls()
+        print("\n======================================\n")
+        print("        MAKE YOUR OWN COFFEE             \n")
+        print("---------------------------------------\n")
+        print ("THIRD lAYER: TOPPINGS\n\n")
+        print("1.No topping\n")
+        print("2.Vanilla Syrup\n")
+        print("3.Caramel Syrup\n")
+        print("4.Hazelnut Syrup\n")
         thirdLayer = input (cmdPrompt)
         while thirdLayer not in ("1","2","3","4"):
             print("try again")
@@ -184,9 +205,17 @@ class CoffeeMachine(object):
             elif thirdLayer == "4":
                 thirdLayer = "Hazelnut Syrup"
                 price +=4
+        cls()
+        print("\n======================================\n")
+        print("        MAKE YOUR OWN COFFEE             \n")
+        print("---------------------------------------\n")
         print("How Do you name your coffe?")
         print ("Leave blank if you don't want to")
         customCoffeeName = input(cmdPrompt)
+        cls()
+        print("\n======================================\n")
+        print("        MAKE YOUR OWN COFFEE             \n")
+        print("---------------------------------------\n")
         print ("Your coffe:", customCoffeeName)
         print(firstLayer,"with",secondLayer,"and", thirdLayer)
         print("price:", price)
@@ -195,9 +224,11 @@ class CoffeeMachine(object):
         print("press 0 to go back")
         decisionInput = input(cmdPrompt)
         if decisionInput == "1":
+            cls()
             myCustomCoffee = CustomCoffee(nameId = 0, name = customCoffeeName, price = price, firstLayer = firstLayer, secondLayer = secondLayer, thirdLayer = thirdLayer)
             self.checkout(myCustomCoffee)
         elif decisionInput == "0":
+            cls()
             return self.buildCoffee()
 
 
@@ -210,16 +241,20 @@ class CoffeeMachine(object):
     def chooseCoffee(self):
         menu = Database.getMenu()
         while True: # The loop will exit using return statement
-            print("Available coffees:")
+            print("\n======================================\n")
+            print("Available coffees:\n")
             for key, coffee in menu.items():
                 print(f"{key}: {coffee.name} for {coffee.price} kr.")
-            print("back: Go back")
+            print("---------------------------------------")
+            print("\nback: Go back\n\n")
             print("Select the coffee you want")
+            print("\n======================================\n")
             userInput = input(cmdPrompt)
 
             if userInput in menu:
                 return self.checkout(menu[userInput])
-            elif userInput == "0":
+            elif userInput == "back":
+                cls()
                 return self.chooseDelivery()
             else:
                 print("Unexpected input.")
@@ -253,7 +288,7 @@ class CoffeeMachine(object):
             if payWithCard(order):
                 pass # Just let it run the following code after if.
             else:
-                return self.chooseCoffee()
+                return self.chooseDelivery()
         # Register the order in the database TODO
         Database.addOrder(order)
         # Brew the coffee
@@ -273,11 +308,16 @@ class CoffeeMachine(object):
         )
 
 def payWithCard(order):
-    print(f"\n\nOrder id: {order.id}"
-        + f"\nTotal: {order.revenue} kr."
-        + "\nPlease input your credit card details."
-        + "\n(User hyphens(-) to separate digit pairs)"
-    )
+    print("\n======================================\n")
+    print("             Card Payment                \n ")
+    print("---------------------------------------\n")
+    print(f"\nOrder id: {order.id}\n"
+        + f"\nTotal: {order.revenue} kr.\n"
+        + f"---------------------------------------\n"
+        + "\nPlease input your credit card details.\n"
+        + "\n(User hyphens(-) to separate digit pairs)")
+    print("\n======================================\n")
+
     while True:
         cardNumber = input("Number: " + cmdPrompt)
         CVC = input("CVC: " + cmdPrompt)
