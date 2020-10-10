@@ -1,52 +1,9 @@
-#####################
-# CSV Structure for users.csv
-# Col 1         col 2           col 3           col 4 [%Y-%m-%d]    col 5
-# cardKey       name            surname         expirationDate      lastCoffeeDate
-#
-from datetime import datetime, date
-import csv
-from user import User
-from order import Order
-from Coffee import Coffee
-
-# Filenames
-global filenameUsers
-filenameUsers = "users.csv"
-
-# Data from files
-global users
-users = {}
-global orders
-orders = {}
-
-#################
-# Hard-coded data
-#   Menu has key for coffeNameId and Coffee as value
-menu = {
-"espresso": Coffee("espresso", "Espresso", 10.00),
-"latte": Coffee("latte", "Latte", 12.50),
-"capuchino": Coffee("capuchino", "Capuchino", 15.00)
-}
-# Bank cards
-#  Example bank card register for prototype use
-#  key is cards number and value is the CVC
-bankCards = {
-"1111-1111-1111-1111": "111",
-"2222-2222-2222-2222": "222",
-"3333-3333-3333-3333": "333"
-}
-# Ungrouped data
-membershipPrice = 250.00
-# /Hard-coded data
-#################
-
-
 ###############################
 # Load users
 # This method load users from users file to a dictionary
 def loadUsers():
     file = open(filenameUsers, "r")
-    allUsers = list(csv.reader(file)) # This creates a list of list
+    allUsers = list(csv.reader(file))
     # From every list (userLine) in the list, we create a new user object,
     #  that we put into the dictonary. We use cardKey value from the users
     #  as the key.
@@ -60,12 +17,7 @@ def loadUsers():
         )
         users[newUser.cardKey] = newUser # Adds the newUser to the dictionary
 
-###############################
-
-
-###############################
 # Write users
-# TODO. Implement a backup feature in the method.
 def writeUsers():
     # We use the "w+" to open and truncate the file
     # We also use newline="" so that the writer does not make empty gaps
@@ -120,42 +72,3 @@ def addUser(user):
         + "The input parameter is not of type User. Database not updated."
         )
 ################################
-
-
-
-################################
-# Orders CSV Structure
-# Colum1,  Column2, Column3
-# orderId, orderDate, orderRevenue
-#
-################################\
-global filenameOrder
-filenameOrder = "orders.csv"
-
-#loadOrders
-# This function load orders from order file to a dictionary
-def loadOrders():
-    orderfile = open(filenameOrder, "r")
-    eachOrder = list(csv.reader(orderfile))
-    for userLine in eachOrder:
-         # We initialize the user with valus from the list
-         newOrder = Order(date = datetime.strptime(userLine[1], "%Y-%m-%d").date(),revenue = float(userLine[2]))
-         orders[newOrder.id] = newOrder
-
-#writeOrders
-# This function writes orders to a dictionary
-def writeOrders():
-    file = open(filenameOrder, "w+", newline = "")
-    writer = csv.writer(file, delimiter = ",")
-
-    for id, order in orders.items():
-        ordersList = [order.id, order.date, order.revenue]
-        writer.writerow(ordersList)
-
-def writeAll():
-    writeOrders()
-    writeUsers()
-
-# Initialize Database
-#loadUsers()
-#loadOrders()
