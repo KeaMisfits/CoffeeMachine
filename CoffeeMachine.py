@@ -1,7 +1,7 @@
 # CoffeeMachine.py
 from user import User
-import fakedata
 import Database
+import statistics
 from datetime import date, timedelta
 from order import Order
 import calendar
@@ -83,6 +83,7 @@ class CoffeeMachine(object):
             print("menu: Choose a coffee from menu. "
             + "\ncustom: Create a custom coffee"
             + "\nmembership: Buy or extend a memberhip"
+            + "\nstats: See the statistics"
             + "\nback: Exit the application")
 
             userInput = input(cmdPrompt)
@@ -95,6 +96,8 @@ class CoffeeMachine(object):
                 return self.buildCoffee()
             elif userInput == "membership": # Update membership
                 return self.buyMembership(self.currentUser)
+            elif userInput == "stats":
+                return statistics.showStatistics()
             elif userInput == "exit" or userInput == "back" : # Exit the loop
                 break
             else:

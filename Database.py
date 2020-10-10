@@ -157,8 +157,10 @@ def writeOrders():
         ordersList = [order.id, order.date, order.revenue]
         writer.writerow(ordersList)
 
-
-
 def writeAll():
     writeOrders()
     writeUsers()
+
+# Initialize Database
+loadUsers()
+loadOrders()
