@@ -2,8 +2,6 @@
 from datetime import date
 
 nextId = 0
-
-
 def getNextId():
     global nextId
     nextId += 1
@@ -26,23 +24,11 @@ class Order(object):
         self.id = getNextId()
         self.date = date
         self.revenue = revenue
-    def myGet(self):
-        print(self.id,",",self.date,",",self.revenue)
+    # def myGet(self):
+    #     print(self.id,",",self.date,",",self.revenue)
 
 
 ##################### class end
-
-# List of orders. This is your Fake data
-"""
-allOrders = [
-Order(date(2020,10,1), 3.50),
-Order(date(2020,10,1), 2.95),
-Order(date(2020,10,2), 2.50),
-Order(date(2020,10,5), 1.50),
-Order(date(2020,10,5), 2.95),
-Order(date(2020,10,5), 7.95),
-]
-"""
 
 #oneOrder = Order()
 #print(oneOrder.revenue)

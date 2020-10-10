@@ -127,7 +127,6 @@ filenameOrder = "orders.csv"
 def loadOrders():
     orderfile = open(filenameOrder, "r")
     eachOrder = list(csv.reader(orderfile))
-    print(eachOrder)
     for userLine in eachOrder:
          # We initialize the user with valus from the list
          newOrder = Order(date = datetime.strptime(userLine[1], "%Y-%m-%d").date(),revenue = float(userLine[2]))
