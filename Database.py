@@ -100,10 +100,6 @@ def getMenu():
 #   Returns bankCards dictionary (PROTOTYPE method)
 def getBankCards():
     return bankCards
-#   Returns Coffee object from the menu.
-#    TODO: may be useless
-def getMenuCoffee(nameId):
-    return menu[nameId]
 ###############################
 
 ###############################

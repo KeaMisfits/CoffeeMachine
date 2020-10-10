@@ -199,10 +199,6 @@ class CoffeeMachine(object):
             self.checkout(myCustomCoffee)
         elif decisionInput == "0":
             return self.buildCoffee()
-
-
-
-
     # Prompts the user to select one of the delivery methods
     # Step 3.1
     # Proceeds to checkout with selected Coffee object
@@ -219,7 +215,7 @@ class CoffeeMachine(object):
 
             if userInput in menu:
                 return self.checkout(menu[userInput])
-            elif userInput == "0":
+            elif userInput == "back":
                 return self.chooseDelivery()
             else:
                 print("Unexpected input.")
