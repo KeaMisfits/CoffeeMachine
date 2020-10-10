@@ -250,10 +250,7 @@ class CoffeeMachine(object):
             if userInput in menu:
                 return self.checkout(menu[userInput])
             elif userInput == "back":
-<<<<<<< HEAD
-=======
                 cls()
->>>>>>> d88f340c336ef7b7846dd52e5a821286cabf32b2
                 return self.chooseDelivery()
             else:
                 print("Unexpected input.")
@@ -330,7 +327,17 @@ def payWithCard(order):
                 # Returns true if its a match
                 return True
         print("Invalid credit card detail.")
-        return False
+        # Loop to retry input if the input is unexpected
+        while True: # Loop will be stopped by 'break'.
+            print("Do you want to try again? (yes/no)")
+            userInput = input(cmdPrompt)
+            if userInput == "yes": # Breaks out of one loop.
+                break
+            elif userInput == "no": # Breaks out of both loops.
+                return False
+                break
+            else: # Does not break any loop
+                print("Unexpected input.")
     def brewCoffee(self, coffee):
         print("\n"
         + "\n-------------------------------------"
