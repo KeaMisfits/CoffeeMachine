@@ -338,10 +338,6 @@ def payWithCard(order):
                 # Returns true if its a match
                 return True
         print("Invalid credit card detail.")
-<<<<<<< HEAD
-
-=======
->>>>>>> airidasd
         # Loop to retry input if the input is unexpected
         while True: # Loop will be stopped by 'break'.
             print("Do you want to try again? (yes/no)")
