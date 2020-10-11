@@ -46,11 +46,13 @@ class CoffeeMachine(object):
             user.expiration = date.today() + timedelta(days = 30)
             Database.addOrder(order)
             Database.writeAll() # Write database values to files immediatelly
+            cls()
             print(f"Membership is now valid until {user.expiration}")
         else:
+            cls()
             print("Membership purchase operation aborted")
         # In any case returns to the choose delivery part.
-        cls()
+
         return self.chooseDelivery()
     #########
     # Prompts the user to provide the student card
@@ -108,24 +110,20 @@ class CoffeeMachine(object):
 
             userInput = input(cmdPrompt)
             # Based on userInput we determine what to do next
+            cls()
             if userInput == "menu": # Choose from menu
                 # Returning a method means that we are ending what left in this
                 #  method and continuing it with the following
-                cls()
                 return self.chooseCoffee()
             elif userInput == "custom": # Custom
-                cls()
                 return self.buildCoffee()
             elif userInput == "membership": # Update membership
-                cls()
                 return self.buyMembership(self.currentUser)
             elif userInput == "stats":
-                cls()
                 return statistics.showStatistics()
             elif userInput == "exit" or userInput == "back" : # Exit the loop
                 break
             else:
-                cls()
                 print("Unexpected input.")
 
 
