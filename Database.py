@@ -8,11 +8,12 @@ import csv
 from user import User
 from order import Order
 from Coffee import Coffee
+import os
+
 
 # Filenames
 global filenameUsers
-filenameUsers = "users.csv"
-
+filenameUsers = os.path.join( os.getcwd(), "users.csv")
 # Data from files
 global users
 users = {}
@@ -130,7 +131,7 @@ def addUser(user):
 #
 ################################\
 global filenameOrder
-filenameOrder = "orders.csv"
+filenameOrder = os.path.join( os.getcwd(), "orders.csv")
 
 #loadOrders
 # This function load orders from order file to a dictionary

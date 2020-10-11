@@ -91,11 +91,11 @@ class CoffeeMachine(object):
     # Goes to Steps 3.x
     def chooseDelivery(self):
         while True:
-            print("\n======================================\n")
+            print("======================================\n")
             print("        CHOOSE AN OPTION            \n")
-            print("---------------------------------------\n")
+            print("---------------------------------------")
             print("What delivery option would you like?\n")
-            print("(Type in function name to continue)\n")
+            print("(Type in function name to continue)")
             print("____________________________________\n")
             # Loop here so that if the userInput is unexpected, it will ask again.
             # The loop will exit using 'return' statements.
@@ -344,7 +344,7 @@ def payWithCard(order):
             userInput = input(cmdPrompt)
             if userInput == "yes": # Breaks out of one loop.
                 break
-            elif userInput == "no": # Breaks out of both loops.
+            elif userInput == "no": # Breaks out of sboth loops.
                 return False
                 break
             else: # Does not break any loop
