@@ -6,7 +6,8 @@ from datetime import date, timedelta
 from order import Order
 import calendar
 from CustomCoffee import CustomCoffee
-import os
+import os 
+import time
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -101,27 +102,27 @@ class CoffeeMachine(object):
             print("____________________________________")
             # Loop here so that if the userInput is unexpected, it will ask again.
             # The loop will exit using 'return' statements.
-            print("menu: Choose a coffee from menu. "
-            + "\ncustom: Create a custom coffee"
-            + "\nmembership: Buy or extend a memberhip"
-            + "\nstats: See the statistics"
-            + "\nback: Exit the application")
+            print("1: Choose a coffee from menu. "
+            + "\n2: Create a custom coffee"
+            + "\n3: Buy or extend a memberhip"
+            + "\n4: See the statistics"
+            + "\n0: Exit the application")
             print("======================================")
 
             userInput = input(cmdPrompt)
             # Based on userInput we determine what to do next
             cls()
-            if userInput == "menu": # Choose from menu
+            if userInput == "1": # Choose from menu
                 # Returning a method means that we are ending what left in this
                 #  method and continuing it with the following
                 return self.chooseCoffee()
-            elif userInput == "custom": # Custom
+            elif userInput == "2": # Custom
                 return self.buildCoffee()
-            elif userInput == "membership": # Update membership
+            elif userInput == "3": # Update membership
                 return self.buyMembership(self.currentUser)
-            elif userInput == "stats":
+            elif userInput == "4":
                 return statistics.showStatistics()
-            elif userInput == "exit" or userInput == "back" : # Exit the loop
+            elif userInput == "e" or userInput == "0" : # Exit the loop
                 break
             else:
                 print("Unexpected input.")
@@ -242,7 +243,7 @@ class CoffeeMachine(object):
             for key, coffee in menu.items():
                 print(f"{key}: {coffee.name} for {coffee.price} kr.")
             print("---------------------------------------")
-            print("\nback: Go back\n\n")
+            print("\n0: Go back\n\n")
             print("Select the coffee you want")
             print("\n======================================\n")
             userInput = input(cmdPrompt)
@@ -250,7 +251,7 @@ class CoffeeMachine(object):
             if userInput in menu:
                 cls()
                 return self.checkout(menu[userInput])
-            elif userInput == "back":
+            elif userInput == "0":
                 cls()
                 return self.chooseDelivery()
             else:
@@ -338,11 +339,12 @@ def payWithCard(order):
         print("Invalid credit card detail.")
         # Loop to retry input if the input is unexpected
         while True: # Loop will be stopped by 'break'.
-            print("Do you want to try again? (yes/no)")
+            print("Do you want to try again? (Y/n)")
             userInput = input(cmdPrompt)
-            if userInput == "yes": # Breaks out of one loop.
+            if userInput == "Y": # Breaks out of one loop.
                 break
-            elif userInput == "no": # Breaks out of sboth loops.
+            elif userInput == "n": # Breaks out of sboth loops.
+                cls()
                 return False
                 break
             else: # Does not break any loop
@@ -358,6 +360,9 @@ def payWithCard(order):
 Enjoy!
 -------------------------------------
         """)
+    
+        
+        
 
 # Calling code
 machine = CoffeeMachine()
@@ -371,3 +376,7 @@ machine.promptCard()
 # Write database values to files.
 Database.writeUsers()
 Database.writeOrders()
+
+time.sleep(3)
+cls()
+machine.promptCard()

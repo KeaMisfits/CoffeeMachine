@@ -5,8 +5,6 @@ import Database
 
 
 def showStatistics():
-    Database.loadOrders()
-    Database.loadUsers()
     orders = Database.orders
     dates = []
     revenues = []
