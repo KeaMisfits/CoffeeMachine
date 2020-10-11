@@ -93,20 +93,20 @@ class CoffeeMachine(object):
     # Goes to Steps 3.x
     def chooseDelivery(self):
         while True:
-            print("======================================\n")
-            print("        CHOOSE AN OPTION            \n")
+            print("======================================")
+            print("        CHOOSE AN OPTION            ")
             print("---------------------------------------")
-            print("What delivery option would you like?\n")
+            print("What delivery option would you like?")
             print("(Type in function name to continue)")
-            print("____________________________________\n")
+            print("____________________________________")
             # Loop here so that if the userInput is unexpected, it will ask again.
             # The loop will exit using 'return' statements.
-            print("menu: Choose a coffee from menu. \n"
-            + "\ncustom: Create a custom coffee\n"
-            + "\nmembership: Buy or extend a memberhip\n"
-            + "\nstats: See the statistics\n"
-            + "\nback: Exit the application\n")
-            print("======================================\n")
+            print("menu: Choose a coffee from menu. "
+            + "\ncustom: Create a custom coffee"
+            + "\nmembership: Buy or extend a memberhip"
+            + "\nstats: See the statistics"
+            + "\nback: Exit the application")
+            print("======================================")
 
             userInput = input(cmdPrompt)
             # Based on userInput we determine what to do next
