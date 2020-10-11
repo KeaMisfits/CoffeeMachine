@@ -2,8 +2,8 @@
 This is a guide how to use the code.
 
 1. Make sure you have pandas and matplotlib modules installed for Python 3
-      pip install pandas
-      pip install matplotlib
+      pip3 install pandas
+      pip3 install matplotlib
 2. To run our code you must compile "CoffeeMachine.py" with Python 3.8.4+.
     (May work with older versions of Python 3 too.)
 
@@ -14,9 +14,10 @@ This is a prototype version of the coffee machine that we are developing, thus
     in the prototype version, you will have to input it manually
 
     You can either input any string to register a new user. The new user will
-      not be a member, thus you will have to buy a membership.
+      not be a member, thus you will have to buy a membership to get free coffee
 
-    Or you can use one of the following pre-made users.
+    Or you can use one of the following pre-made users. Note that some of them
+      have expired memberships.
 
     STUDENT CARD ID     NAME          MEMBERSHIP EXPIRATION DATE   
     qwerty123           Thomas        2020-10-20
@@ -31,7 +32,7 @@ This is a prototype version of the coffee machine that we are developing, thus
     we made a few credit cards that the coffee machine will recognize.
 
     Use the following credit cards when buying.
-    CARD Number               CVC
+    CREDIT CARD NUMBER        CVC
     1111-1111-1111-1111       111
     2222-2222-2222-2222       222
     3333-3333-3333-3333       333
