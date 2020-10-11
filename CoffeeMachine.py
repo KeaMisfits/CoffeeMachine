@@ -14,6 +14,11 @@ global orders
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 cls()
+
+#Load from database
+Database.loadUsers()
+Database.loadOrders()
+
 exit = 1
 while exit == 1:
     class CoffeeMachine(object):
@@ -374,10 +379,8 @@ while exit == 1:
     # Calling code
     machine = CoffeeMachine()
 
-    orders = {}
-    #Load from database
-    Database.loadUsers()
-    Database.loadOrders()
+    
+    
 
     machine.promptCard()
 
