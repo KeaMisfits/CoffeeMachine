@@ -8,6 +8,8 @@ import calendar
 from CustomCoffee import CustomCoffee
 import os 
 import time
+from Database import orders 
+global orders
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -372,6 +374,7 @@ while exit == 1:
     # Calling code
     machine = CoffeeMachine()
 
+    orders = {}
     #Load from database
     Database.loadUsers()
     Database.loadOrders()
@@ -384,3 +387,4 @@ while exit == 1:
 
     time.sleep(3)
     cls()
+    
