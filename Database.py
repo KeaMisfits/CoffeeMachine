@@ -13,7 +13,9 @@ import os
 
 # Filenames
 global filenameUsers
-filenameUsers = os.path.join( os.getcwd(), "users.csv")
+filenameUsers = os.path.join( os.path.dirname(os.path.realpath(__file__)), "users.csv")
+global filenameOrder
+filenameOrder = os.path.join( os.path.dirname(os.path.realpath(__file__)), "orders.csv")
 # Data from files
 global users
 users = {}
@@ -130,8 +132,6 @@ def addUser(user):
 # orderId, orderDate, orderRevenue
 #
 ################################\
-global filenameOrder
-filenameOrder = os.path.join( os.getcwd(), "orders.csv")
 
 #loadOrders
 # This function load orders from order file to a dictionary
