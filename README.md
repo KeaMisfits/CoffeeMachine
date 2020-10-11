@@ -7,6 +7,7 @@ This is a guide how to use the code.
 2. To run our code you must compile "CoffeeMachine.py" with Python 3.8.4+.
     (May work with older versions of Python 3 too.)
 
+-------------------------------------------------------------------------------
 This is a prototype version of the coffee machine that we are developing, thus
   some parts of the code are there only to make the prototype functional.
   Please refer to this note when testing out the code.
@@ -35,7 +36,7 @@ This is a prototype version of the coffee machine that we are developing, thus
     1111-1111-1111-1111       111
     2222-2222-2222-2222       222
     3333-3333-3333-3333       333
-
+-------------------------------------------------------------------------------
 Successful test scenario #1.
 1. Entering an unrecognized student card id (ex. hello456), will allow to
     successfully create a new user.
