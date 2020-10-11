@@ -68,3 +68,9 @@ Successful test scenario #2.
     payment step, also showing the price and order id.
 7. Entering a valid credit card information (ex. 1111-1111-1111-1111, 111) will
     show a coffee delivered message, including the coffee name (ex. Espresso).
+
+Successful test scenario #3
+1. Entering a recognized student card id (ex. qwerty123) will proceed to choose
+    delivery option interface.
+2. Selecting 'stats' as the delivery option will display a plot of the revenues
+    earned lifetime.
